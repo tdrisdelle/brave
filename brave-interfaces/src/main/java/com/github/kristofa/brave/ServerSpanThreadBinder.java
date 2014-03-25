@@ -18,9 +18,9 @@ public interface ServerSpanThreadBinder {
      * This should be called in the thread in which the request was received before executing code in new threads.
      * <p>
      * It returns the current server span which you can keep and bind to a new thread using
-     * {@link ServerSpanThreadBinder#setCurrentSpan(Span)}.
+     * {@link ServerSpanThreadBinder#setCurrentSpan(ServerSpan)}
      * 
-     * @see ServerSpanThreadBinder#setCurrentSpan(Span)
+     * @see ServerSpanThreadBinder#setCurrentSpan(ServerSpan)
      * @return Returned Span can be bound to different executing threads.
      */
     ServerSpan getCurrentServerSpan();
@@ -32,5 +32,24 @@ public interface ServerSpanThreadBinder {
      * @param span Span to bind to current execution thread. Should not be <code>null</code>.
      */
     void setCurrentSpan(final ServerSpan span);
+
+    /**
+     * This should be called in the thread in which the request was received before executing code in new threads.
+     * <p>
+     *     It returns the current client span which you can keep and bind to a new thread using
+     *     {@link ServerSpanThreadBinder#setCurrentClientSpan(com.twitter.zipkin.gen.Span)}.
+     * </p>
+     * @see com.github.kristofa.brave.ServerSpanThreadBinder#setCurrentClientSpan(com.twitter.zipkin.gen.Span)
+     * @return Returned Span can be bound to different executing threads
+     */
+    Span getCurrentClientSpan();
+
+    /**
+     * Binds given client span to current thread. This should typically be called when code is invoked in new thread to
+     * bind the client span from the thread in which we received the request to the new execution thread.
+     *
+     * @param span Client Span to bind to current execution thread. Should not be <code>null</code>.
+     */
+    void setCurrentClientSpan(final Span span);
 
 }

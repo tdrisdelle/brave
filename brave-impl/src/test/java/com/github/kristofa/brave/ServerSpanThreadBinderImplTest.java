@@ -1,24 +1,21 @@
 package com.github.kristofa.brave;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.*;
+
 public class ServerSpanThreadBinderImplTest {
 
-    private ServerSpanState mockServerSpanState;
+    private ServerAndClientSpanState mockServerSpanState;
     private ServerSpan mockSpan;
     private ServerSpanThreadBinderImpl binder;
 
     @Before
     public void setup() {
-        mockServerSpanState = mock(ServerSpanState.class);
+        mockServerSpanState = mock(ServerAndClientSpanState.class);
         binder = new ServerSpanThreadBinderImpl(mockServerSpanState);
         mockSpan = mock(ServerSpan.class);
     }

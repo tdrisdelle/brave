@@ -1,5 +1,6 @@
 package com.github.kristofa.brave;
 
+import com.twitter.zipkin.gen.Span;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -9,14 +10,14 @@ import org.apache.commons.lang3.Validate;
  */
 class ServerSpanThreadBinderImpl implements ServerSpanThreadBinder {
 
-    private final ServerSpanState serverSpanState;
+    private final ServerAndClientSpanState serverSpanState;
 
     /**
      * Creates a new instance.
-     * 
+     *
      * @param serverSpanState Server span state, should not be <code>null</code>
      */
-    public ServerSpanThreadBinderImpl(final ServerSpanState serverSpanState) {
+    public ServerSpanThreadBinderImpl(final ServerAndClientSpanState serverSpanState) {
         Validate.notNull(serverSpanState);
         this.serverSpanState = serverSpanState;
     }
@@ -37,4 +38,19 @@ class ServerSpanThreadBinderImpl implements ServerSpanThreadBinder {
         serverSpanState.setCurrentServerSpan(span);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Span getCurrentClientSpan() {
+        return serverSpanState.getCurrentClientSpan();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCurrentClientSpan(final Span span) {
+        serverSpanState.setCurrentClientSpan(span);
+    }
 }

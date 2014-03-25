@@ -12,7 +12,7 @@ class SimpleServerAndClientSpanStateImpl implements ServerAndClientSpanState {
 
     private Endpoint endPoint;
     private Span currentClientSpan;
-    private ServerSpan currentServerSpan;
+    private ServerSpan currentServerSpan =  new ServerSpanImpl(null);
 
     /**
      * {@inheritDoc}
